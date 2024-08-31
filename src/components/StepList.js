@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaEdit, FaTrashAlt } from 'react-icons/fa'; // Import icons
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { useDrag, useDrop } from 'react-dnd';
 import './StepList.css';
 
@@ -99,7 +99,11 @@ function StepListItem({
           type="text"
           value={editingTitle}
           onChange={onTitleChange}
-          onBlur={() => onTitleSave(index)} // Save title on blur
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              onTitleSave(index);
+            }
+          }}
           onClick={(event) => event.stopPropagation()} // Prevent list item click when editing
           autoFocus
         />

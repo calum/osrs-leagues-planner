@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import Grid from '@mui/material/Grid';
@@ -28,18 +28,27 @@ function App() {
     setCurrentStep
   ] = useSteps();
 
+  // Save the current plan to localStorage whenever the steps change
+  useEffect(() => {
+    localStorage.setItem('osrsPlan', JSON.stringify(steps));
+  }, [steps]);
+
   const handleSafeStepSelect = (index) => {
     if (index >= 0 && index < steps.length) {
       handleStepSelect(index);
     }
   };
 
+  const handleSaveLocation = (newLocation) => {
+    const updatedSteps = [...steps];
+    updatedSteps[currentStep].location = newLocation;
+    setSteps(updatedSteps);
+  };
+
   // Adjust current step if out of bounds after step changes
   if (currentStep >= steps.length) {
     setCurrentStep(steps.length - 1);
   }
-
-  console.log(steps[currentStep]);
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -88,7 +97,11 @@ function App() {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <MapView location={steps[currentStep].location} />
+                    <MapView 
+                      location={steps[currentStep].location} 
+                      onSaveLocation={handleSaveLocation}
+                      isEditing={editingStep === currentStep}
+                    />
                   </Grid>
                 </Grid>
               </>

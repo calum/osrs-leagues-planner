@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { Editor as ToastEditor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css'; // Toast UI Editor CSS
 
 function StepDetails({ step, onSave, isEditing, setEditingStep, currentStep, stepsLength, setCurrentStep }) {
   const [isEditingDescription, setIsEditingDescription] = useState(isEditing);
   const [description, setDescription] = useState(step.description);
+  const editorRef = useRef(null);
 
   // Update the description state when the step prop changes
   useEffect(() => {
@@ -19,11 +24,19 @@ function StepDetails({ step, onSave, isEditing, setEditingStep, currentStep, ste
 
   const handleEditToggle = () => {
     setIsEditingDescription(!isEditingDescription);
-    setEditingStep(null);
+    if (!isEditingDescription) {
+      setEditingStep(currentStep);
+    } else {
+      setEditingStep(null);
+    }
   };
 
   const handleSave = () => {
-    onSave(description);
+    if (editorRef.current) {
+      const markdown = editorRef.current.getInstance().getMarkdown();
+      onSave(markdown);
+      setDescription(markdown); // Update the description state to force re-render
+    }
     setIsEditingDescription(false);
     setEditingStep(null);
   };
@@ -76,23 +89,16 @@ function StepDetails({ step, onSave, isEditing, setEditingStep, currentStep, ste
             Next
           </button>
         </div>
-        <button
-          onClick={handleEditToggle}
-          style={{
-            padding: '5px 10px',
-            fontSize: '0.8rem',
-          }}
-        >
-          {isEditingDescription ? 'Cancel' : 'Edit'}
-        </button>
       </div>
       {isEditingDescription ? (
         <div>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            rows="10"
-            style={{ width: '100%', fontFamily: 'monospace', fontSize: '1rem' }}
+          <ToastEditor
+            ref={editorRef}
+            initialValue={description}
+            previewStyle="vertical"
+            height="300px"
+            initialEditType="markdown"
+            useCommandShortcut={true}
           />
           <div style={{ marginTop: '10px', textAlign: 'right' }}>
             <button onClick={handleSave} style={{ padding: '5px 10px', fontSize: '0.8rem', marginRight: '5px' }}>
@@ -105,7 +111,48 @@ function StepDetails({ step, onSave, isEditing, setEditingStep, currentStep, ste
         </div>
       ) : (
         <div>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              blockquote: ({ children }) => (
+                <blockquote style={{ color: '#6a737d', borderLeft: '4px solid #dfe2e5', paddingLeft: '16px' }}>
+                  {children}
+                </blockquote>
+              ),
+              code({ node, inline, className, children, ...props }) {
+                const match = /language-(\w+)/.exec(className || '');
+                return !inline && match ? (
+                  <SyntaxHighlighter
+                    style={darcula}
+                    language={match[1]}
+                    PreTag="div"
+                    {...props}
+                  >
+                    {String(children).replace(/\n$/, '')}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                );
+              },
+              table: ({ children }) => (
+                <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+                  {children}
+                </table>
+              ),
+              th: ({ children }) => (
+                <th style={{ border: '1px solid #ddd', padding: '8px', backgroundColor: '#f8f8f8', textAlign: 'left' }}>
+                  {children}
+                </th>
+              ),
+              td: ({ children }) => (
+                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>
+                  {children}
+                </td>
+              ),
+            }}
+          >
             {description}
           </ReactMarkdown>
         </div>
