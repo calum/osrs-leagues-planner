@@ -77,7 +77,7 @@ function Inventory({ items, onItemMove, onAddItem }) {
 
   return (
     <div className="inventory-container">
-      <Box sx={{ position: 'relative', width: '204px', height: '275px', backgroundImage: 'url(/assets/Inventory.webp)', backgroundSize: 'cover' }}>
+      <Box sx={{ position: 'relative', width: '204px', height: '275px', backgroundImage: 'url(https://oldschool.runescape.wiki/images/Inventory_tab.png)', backgroundSize: 'cover' }}>
         <Grid container spacing={0} sx={{ position: 'absolute', top: '5%', left: '5%', width: '90%', height: '90%' }}>
           {Array.from(Array(28)).map((_, index) => renderSlot(index))}
         </Grid>
