@@ -1,0 +1,43 @@
+.step-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .step-list li {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .step-list li.active {
+    background-color: #f0f0f0;
+  }
+  
+  .edit-icon {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .delete-icon {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .confirm-delete {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+  }
+  
+  .confirm-delete span {
+    margin-right: 10px;
+  }
+  
+  .confirm-delete button {
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  

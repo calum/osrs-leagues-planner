@@ -1,0 +1,15 @@
+.inventory-container {
+    position: relative;
+    max-width: 204px;
+  }
+  
+  .inventory-slot {
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Optional: visual aid for grid slots */
+    position: relative;
+  }
+  
+  .add-item-button,
+  .add-item-form {
+    width: 100%;
+  }
+  
