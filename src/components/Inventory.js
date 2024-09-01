@@ -36,19 +36,13 @@ function Inventory({ items, onItemMove, onAddItem, uniqueItems }) {
   const [selectedItemId, setSelectedItemId] = useState('');
   const [itemUrlEdited, setItemUrlEdited] = useState(false);
 
-  const itemUrl = itemUrlEdited ? newItemUrl : `https://oldschool.runescape.wiki/images/${convertToUnderscoreFormat(newItemName)}.png`;
-
   const handleDoubleClick = (index) => {
     const item = items.find(item => item.slot === index);
     setCurrentSlot(index);
     setNewItemName(item ? item.name : '');
     setNewItemUrl(item ? item.imageUrl : '');
+    setItemUrlEdited(!!item?.imageUrl); // Set itemUrlEdited to true if the URL is already set
     setEditingItem(item || { slot: index });
-  };
-
-  const handlesetNewItemUrl = (value) => {
-    setItemUrlEdited(true);
-    setNewItemUrl(value);
   };
 
   const handleSaveItem = () => {
@@ -58,7 +52,7 @@ function Inventory({ items, onItemMove, onAddItem, uniqueItems }) {
       : {
           itemId: editingItem.itemId || Date.now(),
           name: newItemName,
-          imageUrl: itemUrl,
+          imageUrl: itemUrlEdited ? newItemUrl : `https://oldschool.runescape.wiki/images/${convertToUnderscoreFormat(newItemName)}.png`,
           slot: currentSlot,
         };
 
@@ -127,6 +121,7 @@ function Inventory({ items, onItemMove, onAddItem, uniqueItems }) {
               if (selectedItem) {
                 setNewItemName(selectedItem.name);
                 setNewItemUrl(selectedItem.imageUrl);
+                setItemUrlEdited(true);
               }
             }}
             displayEmpty
@@ -149,7 +144,12 @@ function Inventory({ items, onItemMove, onAddItem, uniqueItems }) {
             fullWidth
             variant="outlined"
             value={newItemName}
-            onChange={(e) => setNewItemName(e.target.value)}
+            onChange={(e) => {
+              setNewItemName(e.target.value);
+              if (!itemUrlEdited) {
+                setNewItemUrl(`https://oldschool.runescape.wiki/images/${convertToUnderscoreFormat(e.target.value)}.png`);
+              }
+            }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 handleSaveItem();
@@ -162,8 +162,11 @@ function Inventory({ items, onItemMove, onAddItem, uniqueItems }) {
             label="Item Image URL"
             fullWidth
             variant="outlined"
-            value={itemUrl}
-            onChange={(e) => handlesetNewItemUrl(e.target.value)}
+            value={newItemUrl}
+            onChange={(e) => {
+              setNewItemUrl(e.target.value);
+              setItemUrlEdited(true); // Manually editing the URL
+            }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 handleSaveItem();

@@ -1,39 +1,12 @@
 import { useState } from 'react';
+import examplePlan from '../utils/examplePlan.json'; 
 
-const defaultSteps = [
-  {
-    title: "Step 1",
-    description: "Ask Duke Horacio in Lumbridge Castle for a quest",
-    items: [
-      { itemId: 123, slot: 0, name: "Spade", imageUrl: "https://oldschool.runescape.wiki/images/Spade.png" },
-      { itemId: 234, slot: 1, name: "Wooden Shield", imageUrl: "https://oldschool.runescape.wiki/images/Wooden_shield.png" }
-    ],
-    location: "Lumbridge Castle"
-  },
-  {
-    title: "Step 2",
-    description: "Equip the anti-dragon shield",
-    items: [
-      { itemId: 234, slot: 1, name: "Wooden Shield", imageUrl: "https://oldschool.runescape.wiki/images/Wooden_shield.png" }
-    ],
-    location: "Lumbridge Castle"
-  },
-  {
-    title: "Step 3",
-    description: "Run upstairs and bank everything",
-    items: [
-      { itemId: 234, slot: 1, name: "Wooden Shield", imageUrl: "https://oldschool.runescape.wiki/images/Wooden_shield.png" }
-    ],
-    location: "Lumbridge Bank"
-  }
-  // More steps...
-];
 
 function useSteps() {
   // Check for stored steps in localStorage and parse them, or fall back to the default steps
   const [steps, setSteps] = useState(() => {
     const savedSteps = localStorage.getItem('osrsPlan');
-    return savedSteps ? JSON.parse(savedSteps) : defaultSteps;
+    return savedSteps ? JSON.parse(savedSteps) : examplePlan;
   });
 
   const [currentStep, setCurrentStep] = useState(0);

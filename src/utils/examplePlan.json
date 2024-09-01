@@ -1,0 +1,41 @@
+[
+    {
+      "title": "Lumbridge Start (Trailblazer)",
+      "description": "* Open the Leagues Menu [+10]\n* Complete the Leagues Tutorial [+10]\n* Pick \"Trickster\"\n* Start Rune Mysteries\n  * Ask Duke Horacio in Lumbridge Castle for a quest and he'll give you an air talisman. (Chat 2•1•1)\n* Get an anti-dragon shield from Duke Horacio\n* Equip the anti-dragon shield to save inventory\n* Locate a Runecrafting Altar With a Talisman [+10]\n* Run upstairs and bank everything",
+      "items": [
+        {"itemId": 1725220440787, "name": "Dramen staff", "imageUrl": "https://oldschool.runescape.wiki/images/Dramen_staff.png", "slot": 0},
+        {"itemId": 1725220445998, "name": "Bronze axe", "imageUrl": "https://oldschool.runescape.wiki/images/Bronze_axe.png", "slot": 1},
+        {"itemId": 1725220450901, "name": "Bronze pickaxe", "imageUrl": "https://oldschool.runescape.wiki/images/Bronze_pickaxe.png", "slot": 2},
+        {"itemId": 1725220456591, "name": "Tinderbox", "imageUrl": "https://oldschool.runescape.wiki/images/Tinderbox.png", "slot": 3},
+        {"itemId": 1725220462297, "name": "Small fishing net", "imageUrl": "https://oldschool.runescape.wiki/images/Small_fishing_net.png", "slot": 4},
+        {"itemId": 1725220496894, "name": "Shrimps", "imageUrl": "https://oldschool.runescape.wiki/images/Shrimps.png", "slot": 5},
+        {"itemId": 1725220533870, "name": "Bronze dagger", "imageUrl": "https://oldschool.runescape.wiki/images/Bronze_dagger.png", "slot": 6},
+        {"itemId": 1725220546200, "name": "Bronze sword", "imageUrl": "https://oldschool.runescape.wiki/images/Bronze_sword.png", "slot": 7},
+        {"itemId": 1725220550974, "name": "Wooden shield", "imageUrl": "https://oldschool.runescape.wiki/images/Wooden_shield.png", "slot": 8},
+        {"itemId": 1725220556510, "name": "Shortbow", "imageUrl": "https://oldschool.runescape.wiki/images/Shortbow.png", "slot": 9},
+        {"itemId": 1725220599535, "name": "Bronze arrow 5", "imageUrl": "https://oldschool.runescape.wiki/images/Bronze_arrow_5.png", "slot": 10},
+        {"itemId": 1725220611050, "name": "Air rune", "imageUrl": "https://oldschool.runescape.wiki/images/Air_rune.png", "slot": 11},
+        {"itemId": 1725220616926, "name": "Mind rune", "imageUrl": "https://oldschool.runescape.wiki/images/Mind_rune.png", "slot": 12},
+        {"itemId": 1725220625150, "name": "Bucket", "imageUrl": "https://oldschool.runescape.wiki/images/Bucket.png", "slot": 13},
+        {"itemId": 1725220629206, "name": "Pot", "imageUrl": "https://oldschool.runescape.wiki/images/Pot.png", "slot": 14},
+        {"itemId": 1725220632742, "name": "Bread", "imageUrl": "https://oldschool.runescape.wiki/images/Bread.png", "slot": 15},
+        {"itemId": 1725220637861, "name": "Water rune", "imageUrl": "https://oldschool.runescape.wiki/images/Water_rune.png", "slot": 16},
+        {"itemId": 1725220642318, "name": "Earth rune", "imageUrl": "https://oldschool.runescape.wiki/images/Earth_rune.png", "slot": 17},
+        {"itemId": 1725220645701, "name": "Body rune", "imageUrl": "https://oldschool.runescape.wiki/images/Body_rune.png", "slot": 18}
+      ],
+      "location": "https://explv.github.io/?centreX=3238&centreY=3210&centreZ=0&zoom=9"
+    },
+    {
+      "title": "Misthalin Mystery",
+      "description": "* WITHDRAW\n  + Dramen staff (equipped)\n  + Small fishing net\n  + Bronze axe\n  + Bronze pickaxe\n  + All coins\n* Run south through the graveyard\n  + Dance in a graveyard [+10]\n  + Visit Death's Domain [+10]\n    + You may have to talk through every option to get out\n* Keep going south to complete Misthalin Mystery\n  + While running, open settings and \"Disable level-up interface\" (use search) - this is important because it will stop actions being interrupted\n  + This is useful for the rewards\n  + Talk to Abigale in the south-east corner of Lumbridge Swamp and offer your help. (Chat 1•1)\n  + Take the boat to the south\n  + Take a bucket from the fountain to the west\n  + Use quest helper plugin\n  + Achieve Your First Level Up [+10]\n* Pickpocket men/women until 10 thieving\n  + Pickpocket a Citizen [+10]\n  + Open 28 Coin Pouches At Once [+10]\n* Buy from Lumbridge General store\n  + Knife\n  + 2 pots\n  + 2 buckets\n  + Shears",
+      "items": [
+        {"itemId": 1725220440787, "name": "Dramen staff", "imageUrl": "https://oldschool.runescape.wiki/images/Dramen_staff.png", "slot": 0},
+        {"itemId": 1725220462297, "name": "Small fishing net", "imageUrl": "https://oldschool.runescape.wiki/images/Small_fishing_net.png", "slot": 1},
+        {"itemId": 1725220445998, "name": "Bronze axe", "imageUrl": "https://oldschool.runescape.wiki/images/Bronze_axe.png", "slot": 2},
+        {"itemId": 1725218730048, "name": "Bronze pickaxe", "imageUrl": "https://oldschool.runescape.wiki/images/Bronze_pickaxe.png", "slot": 3},
+        {"itemId": 1725220412814, "name": "Coins", "imageUrl": "https://oldschool.runescape.wiki/images/Coins_250.png", "slot": 4}
+      ],
+      "location": "https://explv.github.io/?centreX=3225&centreY=3153&centreZ=0&zoom=9"
+    }
+  ]
+  
