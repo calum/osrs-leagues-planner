@@ -25,7 +25,8 @@ function App() {
     handleItemMove,
     handleAddItem,
     setSteps,
-    setCurrentStep
+    setCurrentStep,
+    getAllUniqueItems
   ] = useSteps();
 
   // Save the current plan to localStorage whenever the steps change
@@ -94,6 +95,7 @@ function App() {
                       items={steps[currentStep].items} 
                       onItemMove={handleItemMove} 
                       onAddItem={handleAddItem} 
+                      uniqueItems={getAllUniqueItems()}
                     />
                   </Grid>
                   <Grid item xs={12}>

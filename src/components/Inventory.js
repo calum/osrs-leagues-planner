@@ -9,17 +9,34 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import './Inventory.css';
+
+function convertToUnderscoreFormat(str) {
+  return str
+    .trim() // Remove leading and trailing spaces
+    .toLowerCase() // Convert the entire string to lowercase
+    .split(/\s+/) // Split the string by spaces (or any whitespace)
+    .map((word, index) => 
+      index === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word
+    ) // Capitalize the first word, keep others lowercase
+    .join('_'); // Join the words with underscores
+}
 
 const ItemTypes = {
   ITEM: 'item',
 };
 
-function Inventory({ items, onItemMove, onAddItem }) {
+function Inventory({ items, onItemMove, onAddItem, uniqueItems }) {
   const [editingItem, setEditingItem] = useState(null);
   const [newItemName, setNewItemName] = useState('');
   const [newItemUrl, setNewItemUrl] = useState('');
   const [currentSlot, setCurrentSlot] = useState(null);
+  const [selectedItemId, setSelectedItemId] = useState('');
+  const [itemUrlEdited, setItemUrlEdited] = useState(false);
+
+  const itemUrl = itemUrlEdited ? newItemUrl : `https://oldschool.runescape.wiki/images/${convertToUnderscoreFormat(newItemName)}.png`;
 
   const handleDoubleClick = (index) => {
     const item = items.find(item => item.slot === index);
@@ -29,27 +46,41 @@ function Inventory({ items, onItemMove, onAddItem }) {
     setEditingItem(item || { slot: index });
   };
 
+  const handlesetNewItemUrl = (value) => {
+    setItemUrlEdited(true);
+    setNewItemUrl(value);
+  };
+
   const handleSaveItem = () => {
-    const newItem = {
-      itemId: editingItem.itemId || Date.now(),
-      name: newItemName,
-      imageUrl: newItemUrl,
-      slot: currentSlot,
-    };
+    const selectedItem = uniqueItems.find(item => item.itemId === selectedItemId);
+    const newItem = selectedItem
+      ? { ...selectedItem, slot: currentSlot }
+      : {
+          itemId: editingItem.itemId || Date.now(),
+          name: newItemName,
+          imageUrl: itemUrl,
+          slot: currentSlot,
+        };
+
     onAddItem(newItem);
     setEditingItem(null);
     setCurrentSlot(null);
+    setSelectedItemId('');
+    setItemUrlEdited(false);
   };
 
   const handleDeleteItem = () => {
     onAddItem(null, currentSlot); // Signal to remove the item
     setEditingItem(null);
     setCurrentSlot(null);
+    setItemUrlEdited(false);
   };
 
   const handleCloseDialog = () => {
     setEditingItem(null);
     setCurrentSlot(null);
+    setSelectedItemId('');
+    setItemUrlEdited(false);
   };
 
   const renderSlot = (index) => {
@@ -67,9 +98,7 @@ function Inventory({ items, onItemMove, onAddItem }) {
           }}
           onDoubleClick={() => handleDoubleClick(index)}
         >
-          {item && (
-            <InventoryItem item={item} index={index} onItemMove={onItemMove} />
-          )}
+          <InventoryItem item={item} index={index} onItemMove={onItemMove} />
         </Box>
       </Grid>
     );
@@ -88,8 +117,31 @@ function Inventory({ items, onItemMove, onAddItem }) {
         <DialogTitle>Edit Item</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Enter the details for the item in this slot.
+            Enter the details for the item in this slot or select from existing items.
           </DialogContentText>
+          <Select
+            value={selectedItemId}
+            onChange={(e) => {
+              setSelectedItemId(e.target.value);
+              const selectedItem = uniqueItems.find(item => item.itemId === e.target.value);
+              if (selectedItem) {
+                setNewItemName(selectedItem.name);
+                setNewItemUrl(selectedItem.imageUrl);
+              }
+            }}
+            displayEmpty
+            fullWidth
+            style={{ marginBottom: '10px' }}
+          >
+            <MenuItem value="">
+              <em>Select Existing Item</em>
+            </MenuItem>
+            {uniqueItems.map((item) => (
+              <MenuItem key={item.itemId} value={item.itemId}>
+                {item.name}
+              </MenuItem>
+            ))}
+          </Select>
           <TextField
             autoFocus
             margin="dense"
@@ -98,14 +150,26 @@ function Inventory({ items, onItemMove, onAddItem }) {
             variant="outlined"
             value={newItemName}
             onChange={(e) => setNewItemName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleSaveItem();
+              }
+            }}
+            disabled={!!selectedItemId} // Disable if an item is selected from the dropdown
           />
           <TextField
             margin="dense"
             label="Item Image URL"
             fullWidth
             variant="outlined"
-            value={newItemUrl}
-            onChange={(e) => setNewItemUrl(e.target.value)}
+            value={itemUrl}
+            onChange={(e) => handlesetNewItemUrl(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleSaveItem();
+              }
+            }}
+            disabled={!!selectedItemId} // Disable if an item is selected from the dropdown
           />
         </DialogContent>
         <DialogActions>
@@ -129,7 +193,7 @@ function Inventory({ items, onItemMove, onAddItem }) {
 function InventoryItem({ item, index, onItemMove }) {
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.ITEM,
-    item: { index, itemId: item.itemId },
+    item: { index, itemId: item ? item.itemId : null },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -160,13 +224,20 @@ function InventoryItem({ item, index, onItemMove }) {
         boxSizing: 'border-box',
       }}
     >
-      <img
-        src={item.imageUrl}
-        alt={item.name || `Item ${item.itemId}`}
-        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-        onError={(e) => { e.target.onerror = null; e.target.src = ''; }} // Fallback to empty string if image fails to load
-      />
-      {!item.imageUrl && <Box sx={{ textAlign: 'center' }}>{item.name}</Box>}
+      {item ? (
+        <img
+          src={item.imageUrl}
+          alt={item.name || `Item ${item.itemId}`}
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+          onError={(e) => { e.target.onerror = null; e.target.src = ''; }} // Fallback to empty string if image fails to load
+        />
+      ) : (
+        <img
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" // 1x1 pixel transparent gif
+          alt="Empty Slot"
+          style={{ width: '100%', height: '100%', opacity: 0 }} // Invisible but present for drag/drop
+        />
+      )}
     </Box>
   );
 }

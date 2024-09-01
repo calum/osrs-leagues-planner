@@ -88,12 +88,32 @@ function useSteps() {
   };
 
   const handleItemMove = (fromIndex, toIndex) => {
-    const updatedItems = steps[currentStep].items.map(item =>
-      item.slot === fromIndex ? { ...item, slot: toIndex } : item
-    );
-    const updatedSteps = [...steps];
-    updatedSteps[currentStep].items = updatedItems;
-    setSteps(updatedSteps);
+    if (fromIndex === toIndex) return;
+  
+    setSteps((prevSteps) => {
+      const newSteps = [...prevSteps];
+      const currentItems = [...newSteps[currentStep].items];
+      const draggedItem = currentItems.find(item => item.slot === fromIndex);
+  
+      // Find the item in the destination slot (if any)
+      const targetItem = currentItems.find(item => item.slot === toIndex);
+  
+      // Swap or move the items
+      if (targetItem) {
+        targetItem.slot = fromIndex;
+      }
+  
+      draggedItem.slot = toIndex;
+  
+      // Update the current step's items
+      newSteps[currentStep].items = currentItems.map(item => {
+        if (item.itemId === draggedItem.itemId) return draggedItem;
+        if (targetItem && item.itemId === targetItem.itemId) return targetItem;
+        return item;
+      });
+  
+      return newSteps;
+    });
   };
 
   const handleAddItem = (newItem, slot) => {
@@ -106,6 +126,15 @@ function useSteps() {
       updatedSteps[currentStep].items = updatedItems;
     }
     setSteps(updatedSteps);
+  };
+
+  // Function to get all unique items used across all steps
+  const getAllUniqueItems = () => {
+    const allItems = steps.flatMap(step => step.items);
+    const uniqueItems = Array.from(new Set(allItems.map(item => item.itemId))).map(itemId =>
+      allItems.find(item => item.itemId === itemId)
+    );
+    return uniqueItems;
   };
 
   return [
@@ -122,7 +151,8 @@ function useSteps() {
     handleItemMove,
     handleAddItem,
     setSteps,           
-    setCurrentStep      
+    setCurrentStep,
+    getAllUniqueItems   
   ];
 }
 

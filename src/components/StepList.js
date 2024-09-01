@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { FaTrashAlt } from 'react-icons/fa';
 import { useDrag, useDrop } from 'react-dnd';
 import './StepList.css';
 
@@ -94,6 +94,7 @@ function StepListItem({
       onClick={() => onStepSelect(index)}
       onDoubleClick={() => onEditClick(index, step.title)} // Enable double-click to edit
     >
+      <span className="step-number">{index + 1}.</span> {/* Step number indicating order */}
       {isEditing ? (
         <input
           type="text"
@@ -110,13 +111,6 @@ function StepListItem({
       ) : (
         <>
           {step.title}
-          <FaEdit
-            className="edit-icon"
-            onClick={(event) => {
-              event.stopPropagation();
-              onEditClick(index, step.title);
-            }}
-          />
           <FaTrashAlt
             className="delete-icon"
             onClick={(event) => {
