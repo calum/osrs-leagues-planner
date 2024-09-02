@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/osrs-leagues-planner/static/css/main.955429b8.css",
-    "main.js": "/osrs-leagues-planner/static/js/main.b5489e92.js",
+    "main.css": "/osrs-leagues-planner/static/css/main.13ae1653.css",
+    "main.js": "/osrs-leagues-planner/static/js/main.6a7c163e.js",
     "static/media/index.cjs": "/osrs-leagues-planner/static/media/index.c05687ef19f5bac24939.cjs",
     "index.html": "/osrs-leagues-planner/index.html",
-    "main.955429b8.css.map": "/osrs-leagues-planner/static/css/main.955429b8.css.map",
-    "main.b5489e92.js.map": "/osrs-leagues-planner/static/js/main.b5489e92.js.map"
+    "main.13ae1653.css.map": "/osrs-leagues-planner/static/css/main.13ae1653.css.map",
+    "main.6a7c163e.js.map": "/osrs-leagues-planner/static/js/main.6a7c163e.js.map"
   },
   "entrypoints": [
-    "static/css/main.955429b8.css",
-    "static/js/main.b5489e92.js"
+    "static/css/main.13ae1653.css",
+    "static/js/main.6a7c163e.js"
   ]
 }
