@@ -2,18 +2,41 @@ import Papa from 'papaparse';
 
 export function handleFileUpload(event, setSteps) {
   const file = event.target.files[0];
-  Papa.parse(file, {
-    header: true,
-    complete: function(results) {
-      const importedSteps = results.data.map((row, index) => ({
-        title: row['Title'] || `Step ${index + 1}`,
-        description: row['Step Description'],
-        items: JSON.parse(row['Inventory Items']),
-        location: row['Map Location']
-      }));
-      setSteps(importedSteps);
-    }
-  });
+  const fileExtension = file.name.split('.').pop().toLowerCase();
+
+  if (fileExtension === 'json') {
+    // Handle JSON file
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      try {
+        const json = JSON.parse(event.target.result);
+        if (Array.isArray(json)) {
+          setSteps(json);
+        } else {
+          console.error('Invalid JSON format: Expected an array of steps.');
+        }
+      } catch (error) {
+        console.error('Error parsing JSON file:', error);
+      }
+    };
+    reader.readAsText(file);
+  } else if (fileExtension === 'csv') {
+    // Handle CSV file
+    Papa.parse(file, {
+      header: true,
+      complete: function(results) {
+        const importedSteps = results.data.map((row, index) => ({
+          title: row['Title'] || `Step ${index + 1}`,
+          description: row['Step Description'],
+          items: JSON.parse(row['Inventory Items']),
+          location: row['Map Location']
+        }));
+        setSteps(importedSteps);
+      }
+    });
+  } else {
+    console.error('Unsupported file format. Please upload a JSON or CSV file.');
+  }
 }
 
 export function handleDownloadCSV(steps) {
