@@ -14,6 +14,7 @@
 - **Markdown Support:** Use Markdown to format descriptions, including lists, sublists, blockquotes, and code blocks.
 - **Skill XP Tracker:** Automatically track XP gains in various skills throughout your plan, with level indications and formatted XP values.
 - **Task Tracker:** Track the number of tasks completed and points earned at each step in your plan.
+- **Google Drive Syncing:** Sign in with your Google account to save and load plans directly from Google Drive. Avoid duplicates by selecting an existing plan or overwriting a current one.
 - **Autosave and Persistence:** Your plans are automatically saved in the browser, so you can pick up right where you left off.
 - **CSV Export/Import:** Easily share your plans by exporting them to CSV or importing from a CSV file.
 - **GitHub Pages Deployment:** The app is deployed automatically to GitHub Pages on each commit to the `main` branch.
@@ -80,6 +81,7 @@ Check out the live demo: [OSRS Leagues Planner](https://calum.github.io/osrs-lea
 
 ### Saving and Loading
 
+- **Google Drive Syncing:** Sign in with your Google account to save your plan directly to Google Drive. The save dialog allows you to select an existing plan to overwrite or create a new one. Load plans by selecting from a list of saved plans on your Google Drive.
 - **Autosave:** Your plan is automatically saved to your browser's local storage.
 - **Reload:** The app will automatically load your last saved plan when you return to the site.
 

@@ -16,15 +16,12 @@ body {
   display: flex;
 }
 
-.left-panel {
-  width: 13%;
-  background-color: #e7e7e7;
-  padding: 10px;
-}
-
 .right-panel {
-  width: 75%;
-  padding: 10px;
+  padding: 20px;
+  padding-left: 55px;
+  background-color: #fff;
+  flex-grow: 1;
+  height: 100%;
 }
 
 .step-list ul {
@@ -120,4 +117,33 @@ input[type="file"] {
   width: 80%;
   padding: 4px;
   margin-right: 10px;
+}
+
+/* Drawer Content */
+.drawer-header {
+  padding: 16px;
+  background-color: #333;
+  color: white;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawer-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (max-width: 1200px) {
+  .right-panel {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  .container {
+    flex-direction: column;
+  }
 }

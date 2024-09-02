@@ -1,6 +1,5 @@
 .step-list {
   max-height: 80vh; /* Adjust based on your layout */
-  overflow-y: auto;
   padding: 0;
   margin: 0;
   list-style-type: none;
