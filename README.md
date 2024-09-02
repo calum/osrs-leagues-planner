@@ -4,14 +4,16 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/calum/osrs-leagues-planner)
 ![GitHub issues](https://img.shields.io/github/issues/calum/osrs-leagues-planner)
 
-**OSRS Leagues Planner** is a React-based web application designed to help players plan their strategies and progress for Old School RuneScape (OSRS) Leagues events. The app allows users to create, edit, and visualize step-by-step plans, including inventory management and location tracking on an interactive map.
+**OSRS Leagues Planner** is a React-based web application designed to help players plan their strategies and progress for Old School RuneScape (OSRS) Leagues events. The app allows users to create, edit, and visualize step-by-step plans, including inventory management, location tracking on an interactive map, and tracking skill XP gains and task points.
 
 ## Features
 
 - **Step-by-Step Planning:** Create detailed plans for each stage of your OSRS Leagues journey.
-- **Inventory Management:** Visualize your inventory at each step, with the ability to drag and drop items.
-- **Interactive Map Integration:** Track your location on an interactive map and save map URLs for specific steps.
+- **Inventory Management:** Visualize your inventory at each step, with the ability to drag and drop items, select from previously used items, and manually add new ones.
+- **Interactive Map Integration:** Track your location on an interactive map, with the ability to edit and save map URLs for specific steps.
 - **Markdown Support:** Use Markdown to format descriptions, including lists, sublists, blockquotes, and code blocks.
+- **Skill XP Tracker:** Automatically track XP gains in various skills throughout your plan, with level indications and formatted XP values.
+- **Task Tracker:** Track the number of tasks completed and points earned at each step in your plan.
 - **Autosave and Persistence:** Your plans are automatically saved in the browser, so you can pick up right where you left off.
 - **CSV Export/Import:** Easily share your plans by exporting them to CSV or importing from a CSV file.
 - **GitHub Pages Deployment:** The app is deployed automatically to GitHub Pages on each commit to the `main` branch.
@@ -34,7 +36,7 @@ Check out the live demo: [OSRS Leagues Planner](https://calum.github.io/osrs-lea
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v16.x or higher)
+- [Node.js](https://nodejs.org/) (v20.x or higher)
 - [npm](https://www.npmjs.com/) (v7.x or higher)
 
 ### Steps
@@ -64,9 +66,11 @@ Check out the live demo: [OSRS Leagues Planner](https://calum.github.io/osrs-lea
 
 ### Creating a Plan
 
-- **Add Steps:** Use the "Add Step" button to create new steps in your plan. Each step can include a title, description, inventory items, and a location on the map.
-- **Edit Steps:** Double-click a step title to edit it or click the edit icon. You can also edit the description using the integrated Markdown editor.
-- **Manage Inventory:** Drag and drop items in your inventory to reorder them or add new items with the "Add Item" button.
+- **Add Steps:** Use the "Add Step" button to create new steps in your plan. Each step can include a title, description, inventory items, skill XP gains, task points, and a location on the map.
+- **Edit Steps:** Double-click a step title to edit it. You can also edit the description using the integrated Markdown editor, which now supports advanced formatting options.
+- **Manage Inventory:** Drag and drop items in your inventory to reorder them, or double-click to edit or add new items. The dropdown menu allows you to quickly select previously used items.
+- **Skill XP Tracking:** Add skill XP gains directly in the step description using the format "Skill +XP" (e.g., "Attack +15000xp"). The Skill XP Tracker will automatically update to reflect the total XP for each skill.
+- **Task Tracking:** Include task points in your step descriptions by adding "<X>" where X is the number of points. The Task Tracker will display the cumulative points earned before and after each step.
 - **Map Location:** Click "Edit Map Location" to set the location for a step. The map URL will be saved and can be reused across steps.
 
 ### Exporting and Importing Plans
@@ -110,3 +114,7 @@ Contributions are welcome! Please follow these steps:
 ### Issues
 
 If you encounter any issues or have suggestions, please open an issue on the [Issues](https://github.com/calum/osrs-leagues-planner/issues) page.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
