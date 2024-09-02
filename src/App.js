@@ -6,6 +6,7 @@ import StepList from './components/StepList';
 import StepDetails from './components/StepDetails';
 import Inventory from './components/Inventory';
 import MapView from './components/MapView';
+import SkillTable from './components/SkillTable';
 import './App.css';
 import useSteps from './hooks/useSteps';
 import { handleFileUpload, handleDownloadCSV } from './utils/csvUtils';
@@ -80,6 +81,7 @@ function App() {
               <>
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={8}>
+                    <SkillTable steps={steps} currentStep={currentStep} />
                     <StepDetails 
                       step={steps[currentStep]} 
                       onSave={handleStepUpdate} 
